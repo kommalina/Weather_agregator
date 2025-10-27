@@ -1,0 +1,18 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+
+GET     /                                       controllers.WeatherController.index()
+GET     /weather                                controllers.WeatherController.latestCitiesWeather()
+
+
+# API Routes
+GET     /api/weather                            controllers.WeatherController.getAllWeather()
+GET     /api/weather/:location                  controllers.WeatherController.getWeatherByLocation(location: String)
+POST    /api/weather                            controllers.WeatherController.insert()
+DELETE  /api/weather/:id                        controllers.WeatherController.delete(id: Int)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

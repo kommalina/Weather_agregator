@@ -1,0 +1,44 @@
+@(weatherData: Seq[models.WeatherModel])
+
+@main("Последние данные о погоде по городам") {
+  <div class="weather-container">
+    <h2 class="location-title">Последние данные о погоде по городам</h2>
+    <p class="last-update">
+      Данные получены: @{
+        java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").format(java.time.LocalDateTime.now())
+      }
+    </p>
+
+    <div class="table-responsive">
+      <table class="weather-table">
+        <thead>
+          <tr>
+            <th>Город</th>
+            <th>Сервис</th>
+            <th>Температура</th>
+            <th>Погодные условия</th>
+            <th>Время измерения</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(data <- weatherData) {
+            <tr>
+              <td>@data.location</td>
+              <td>@data.serviceName</td>
+              <td class="temperature">@{f"${data.temperature}%.1f"}°C</td>
+              <td>@data.metcast</td>
+              <td>@{
+                java.time.format.DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm").format(data.dateAndTime)
+              }</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="actions">
+      <a href="/" class="btn-secondary">Вернуться на главную</a>
+      <a href="/weather" class="btn-secondary">Обновить данные</a>
+    </div>
+  </div>
+} 
